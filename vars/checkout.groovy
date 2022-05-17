@@ -1,32 +1,27 @@
-// def call(Map pipelineParams) {
-  
-//     pipeline {
-//         agent any
-//         stages {
-//             stage ('Checkout') {
-//                 steps {
-//                       println "Approval."    
+def call(body) {
+  call([:], body)
+}
 
-//                       checkout([$class: 'GitSCM',
-//                                         branch: 'master',
-//                                         url: pipelineParams.url])
-//                       println "Success"
-                        
-//                 }
-//             }
-//         }
-//     }
-// }
-
-def call(Map pipelineParams) {
-
+def call(pipelineParams, body) {
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = pipelineParams
+    body()
+    
     pipeline {
         agent any
         stages {
-            stage('checkout git') {
+            stage ('Checkout') {
                 steps {
                   script{
-                    git branch: 'main', url: pipelineParams.url
+                        println "Approval."    
+
+                        checkout changelog: true,
+                                poll: true,
+                                scm: [$class: 'GitSCM',                                        
+                                        doGenerateSubmoduleConfigurations: false,                                       
+                                        submoduleCfg: [],
+                                        userRemoteConfigs: [[branch: pipilineParams.branch, url: pipelineParams.url]]
+                                ]
                   }
                 }
             }
