@@ -8,7 +8,7 @@ def call(Map pipelineParams) {
                       println "Approval."    
 
                       checkout([$class: 'GitSCM',
-                                        branches: [[name: '*/master']],
+                                        branch: 'master',
                                         url: pipelineParams.url])
                       println "Success"
                         
