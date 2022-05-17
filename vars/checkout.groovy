@@ -5,16 +5,13 @@ def call(Map pipelineParams) {
         stages {
             stage ('Checkout') {
                 steps {
-                    script{
+                      println "Approval."    
 
-                        println "Approval."    
-
-                        checkout([$class: 'GitSCM',
+                      checkout([$class: 'GitSCM',
                                         branches: [[name: 'master']],
-                                        url: pipelineParams.url
-                                ])
-                        println "Success"
-                    }    
+                                        url: pipelineParams.url])
+                      println "Success"
+                        
                 }
             }
         }
