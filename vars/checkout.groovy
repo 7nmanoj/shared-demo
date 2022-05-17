@@ -25,7 +25,9 @@ def call(Map pipelineParams) {
         stages {
             stage('checkout git') {
                 steps {
+                  script{
                     git branch: 'main', url: pipelineParams.url
+                  }
                 }
             }
         }
