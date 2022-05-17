@@ -6,7 +6,7 @@ def call(Map stageParams) {
                 steps {
                 checkout(
                     branch: "main",
-                    url: "https://github.com/7nmanoj/shared-demo.git"
+                    url: stageParams.url
                 )
                 }
             }
@@ -14,7 +14,7 @@ def call(Map stageParams) {
    }
 }
  
-    
+   
     
     
     
