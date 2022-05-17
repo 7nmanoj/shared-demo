@@ -1,13 +1,8 @@
-def call(Map pipelineParams) {
+def call(Map stageParams) {
 
-    pipeline {
-        agent any
-        stages {
-            stage('checkout git') {
-                steps {
-                    git branch: pipelineParams.branch, url: pipelineParams.scmUrl
-                }
-            }
-        }
-    }
-}
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name:  stageParams.branch ]],
+        userRemoteConfigs: [[ url: stageParams.url ]]
+    ])
+  }
